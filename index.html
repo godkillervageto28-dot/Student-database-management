@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <button id="evaluator-btn" onclick="toggleModal(true)">📖 Flow / How to Use</button>
+    
+    <div id="evaluator-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Evaluator Flow Guide</h2>
+            <ol>
+                <li><strong>Admin Login:</strong> Log in using Username: <code>admin</code> and Password: <code>admin123</code>.</li>
+                <li><strong>Add Users (Admin):</strong> Create a Faculty account and a Student account. Note their usernames and passwords. Log out.</li>
+                <li><strong>Faculty Login:</strong> Log in using the Faculty credentials you just created.</li>
+                <li><strong>Update Profile (Faculty):</strong> Add attendance and subject marks (Math, Science, English) for the student. Click "Update". Log out.</li>
+                <li><strong>Student Login:</strong> Log in using the Student credentials.</li>
+                <li><strong>View Profile (Student):</strong> See the attendance and marks updated by the faculty.</li>
+            </ol>
+            <button onclick="toggleModal(false)" style="width: 100%; margin-top: 1rem;">Got it!</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="app-header" class="header hidden">
+            <div>
+                <h2>Welcome, <span id="current-user-name"></span></h2>
+                <small>Role: <span id="current-user-role"></span></small>
+            </div>
+            <button class="danger" onclick="logout()">Logout</button>
+        </div>
+
+        <div id="view-login">
+            <h2>System Login</h2>
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="login-username" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" style="width: 100%;">Login</button>
+                <p style="text-align: center; margin-top: 1rem; color: #6b7280; font-size: 0.9rem;">
+                    Admin Access: admin / admin123
+                </p>
+            </form>
+        </div>
+
+        <div id="view-admin" class="hidden">
+            <h3>Add New User (Faculty/Student)</h3>
+            <form id="add-user-form" onsubmit="handleAddUser(event)">
+                <div class="form-group">
+                    <label>Role</label>
+                    <select id="new-role">
+                        <option value="faculty">Faculty</option>
+                        <option value="student">Student</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="new-name" required>
+                </div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="new-username" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="text" id="new-password" required>
+                </div>
+                <button type="submit">Create User</button>
+            </form>
+
+            <h3 style="margin-top: 2rem;">System Users</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-users-table"></tbody>
+            </table>
+        </div>
+
+        <div id="view-faculty" class="hidden">
+            <h3>Student Profiles & Grades</h3>
+            <div id="faculty-students-list">
+                </div>
+        </div>
+
+        <div id="view-student" class="hidden">
+            <h3>My Academic Profile</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Attendance</th>
+                        <td id="student-attendance"></td>
+                    </tr>
+                    <tr>
+                        <th>Math Marks</th>
+                        <td id="student-math"></td>
+                    </tr>
+                    <tr>
+                        <th>Science Marks</th>
+                        <td id="student-science"></td>
+                    </tr>
+                    <tr>
+                        <th>English Marks</th>
+                        <td id="student-english"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
