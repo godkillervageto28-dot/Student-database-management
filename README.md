@@ -2,6 +2,13 @@ Student Management System (SMS):
 
 A simple 'frontend-based Student Management System' built using "HTML, CSS, and JavaScript". This project demonstrates role-based access for "Admin, Faculty, and Students" without using any backend or database.
 
+---
+
+**LIVE DEMO** : SMS - Student Management System : "https://godkillervageto28-dot.github.io/Student-management/"
+
+
+---
+
 Features:
 
 Role-Based Login System:
