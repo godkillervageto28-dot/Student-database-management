@@ -1,207 +1,641 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SMS — Student Management System | Vels University</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        body { overflow-x: hidden; }
+        body {
+            overflow-x: hidden;
+        }
 
         /* NAV */
         .nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 2.5rem; height: 70px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2.5rem;
+            height: 70px;
             background: var(--primary);
             border-bottom: var(--border-ultra);
             box-shadow: 0 6px 0 #0d0d0d;
         }
+
         .nav-logo {
-            font-family: var(--font-display); font-size: 1.4rem;
-            color: white; letter-spacing: 2px;
-            display: flex; align-items: center; gap: 0.6rem;
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: white;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
             text-decoration: none;
         }
+
         .nav-logo .dot {
-            width: 12px; height: 12px; background: var(--accent);
-            border: 2px solid white; display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border: 2px solid white;
+            display: inline-block;
         }
-        .nav-links { display: flex; align-items: center; gap: 0.5rem; }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
         .nav-link {
-            font-family: var(--font-mono); font-size: 0.75rem;
-            letter-spacing: 2px; text-transform: uppercase;
-            color: rgba(255,255,255,0.6); text-decoration: none;
-            padding: 0.5rem 1rem; border: 2px solid transparent; transition: all 0.15s;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 2px solid transparent;
+            transition: all 0.15s;
         }
-        .nav-link:hover { color: white; border-color: rgba(255,255,255,0.3); }
+
+        .nav-link:hover {
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
         .nav-cta {
-            font-family: var(--font-display); font-size: 0.85rem;
-            letter-spacing: 1.5px; text-transform: uppercase;
-            color: var(--text); text-decoration: none;
-            background: var(--accent3); border: var(--border-thick);
-            padding: 0.5rem 1.2rem; box-shadow: 4px 4px 0 #0d0d0d;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text);
+            text-decoration: none;
+            background: var(--accent3);
+            border: var(--border-thick);
+            padding: 0.5rem 1.2rem;
+            box-shadow: 4px 4px 0 #0d0d0d;
             transition: transform 0.08s, box-shadow 0.08s;
         }
-        .nav-cta:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #0d0d0d; }
+
+        .nav-cta:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 #0d0d0d;
+        }
 
         /* HERO */
         .hero {
-            min-height: 100vh; display: flex; flex-direction: column;
-            justify-content: center; padding: 8rem 2.5rem 5rem;
-            position: relative; overflow: hidden; background: var(--primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8rem 2.5rem 5rem;
+            position: relative;
+            overflow: hidden;
+            background: var(--primary);
         }
+
         .hero-grid-bg {
-            position: absolute; inset: 0;
+            position: absolute;
+            inset: 0;
             background-image:
-                repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.04) 59px, rgba(255,255,255,0.04) 60px),
-                repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.04) 59px, rgba(255,255,255,0.04) 60px);
+                repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255, 255, 255, 0.04) 59px, rgba(255, 255, 255, 0.04) 60px),
+                repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255, 255, 255, 0.04) 59px, rgba(255, 255, 255, 0.04) 60px);
             pointer-events: none;
         }
+
         .hero-stripe {
-            position: absolute; top: 0; left: 0; right: 0; height: 8px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
             background: repeating-linear-gradient(90deg, var(--accent) 0, var(--accent) 30px, var(--accent3) 30px, var(--accent3) 60px, var(--accent2) 60px, var(--accent2) 90px);
         }
+
         .hero-watermark {
-            position: absolute; right: -2rem; bottom: -3rem;
+            position: absolute;
+            right: -2rem;
+            bottom: -3rem;
             font-family: var(--font-display);
             font-size: clamp(8rem, 22vw, 22rem);
-            color: rgba(255,255,255,0.04); pointer-events: none;
-            line-height: 1; user-select: none;
+            color: rgba(255, 255, 255, 0.04);
+            pointer-events: none;
+            line-height: 1;
+            user-select: none;
         }
+
         .hero-tag {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            font-family: var(--font-mono); font-size: 0.7rem;
-            letter-spacing: 3px; text-transform: uppercase;
-            color: var(--accent3); border: 2px solid rgba(255,213,0,0.3);
-            padding: 0.4rem 0.8rem; margin-bottom: 1.5rem; width: fit-content;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent3);
+            border: 2px solid rgba(255, 213, 0, 0.3);
+            padding: 0.4rem 0.8rem;
+            margin-bottom: 1.5rem;
+            width: fit-content;
             animation: fadeUp 0.5s 0.1s both;
         }
-        .hero-tag::before { content: '●'; font-size: 0.5rem; animation: blink 1.2s infinite; }
-        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+        .hero-tag::before {
+            content: '●';
+            font-size: 0.5rem;
+            animation: blink 1.2s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0
+            }
+        }
 
         .hero-title {
             font-family: var(--font-display);
             font-size: clamp(3rem, 9vw, 7.5rem);
-            color: white; line-height: 0.95;
-            letter-spacing: 2px; text-transform: uppercase;
-            max-width: 900px; animation: fadeUp 0.5s 0.2s both;
+            color: white;
+            line-height: 0.95;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            max-width: 900px;
+            animation: fadeUp 0.5s 0.2s both;
         }
-        .hero-title .accent-word { color: var(--accent); }
-        .hero-title .outline-word { -webkit-text-stroke: 3px white; color: transparent; }
+
+        .hero-title .accent-word {
+            color: var(--accent);
+        }
+
+        .hero-title .outline-word {
+            -webkit-text-stroke: 3px white;
+            color: transparent;
+        }
 
         .hero-desc {
-            margin-top: 2rem; font-size: 1.2rem; font-weight: 600;
-            color: rgba(255,255,255,0.6); max-width: 520px;
-            line-height: 1.6; animation: fadeUp 0.5s 0.3s both;
+            margin-top: 2rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 520px;
+            line-height: 1.6;
+            animation: fadeUp 0.5s 0.3s both;
         }
+
         .hero-actions {
-            display: flex; gap: 1rem; flex-wrap: wrap;
-            margin-top: 2.5rem; animation: fadeUp 0.5s 0.4s both;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2.5rem;
+            animation: fadeUp 0.5s 0.4s both;
         }
+
         .btn-primary {
-            font-family: var(--font-display); font-size: 1.1rem;
-            letter-spacing: 2px; text-transform: uppercase;
-            color: var(--text); text-decoration: none;
-            background: var(--accent3); border: var(--border-ultra);
-            padding: 1rem 2.5rem; box-shadow: var(--shadow-lg);
-            display: inline-block; transition: transform 0.08s, box-shadow 0.08s;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text);
+            text-decoration: none;
+            background: var(--accent3);
+            border: var(--border-ultra);
+            padding: 1rem 2.5rem;
+            box-shadow: var(--shadow-lg);
+            display: inline-block;
+            transition: transform 0.08s, box-shadow 0.08s;
         }
-        .btn-primary:hover { transform: translate(-4px,-4px); box-shadow: 16px 16px 0 #0d0d0d; }
+
+        .btn-primary:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 16px 16px 0 #0d0d0d;
+        }
+
         .btn-outline {
-            font-family: var(--font-display); font-size: 1.1rem;
-            letter-spacing: 2px; text-transform: uppercase;
-            color: white; text-decoration: none; background: transparent;
-            border: var(--border-ultra); border-color: rgba(255,255,255,0.4);
-            padding: 1rem 2.5rem; display: inline-block; transition: all 0.1s;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: white;
+            text-decoration: none;
+            background: transparent;
+            border: var(--border-ultra);
+            border-color: rgba(255, 255, 255, 0.4);
+            padding: 1rem 2.5rem;
+            display: inline-block;
+            transition: all 0.1s;
         }
-        .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.08); }
+
+        .btn-outline:hover {
+            border-color: white;
+            background: rgba(255, 255, 255, 0.08);
+        }
 
         .hero-stats {
-            display: flex; gap: 2.5rem; flex-wrap: wrap;
-            margin-top: 3.5rem; padding-top: 2rem;
-            border-top: 3px solid rgba(255,255,255,0.1);
+            display: flex;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            margin-top: 3.5rem;
+            padding-top: 2rem;
+            border-top: 3px solid rgba(255, 255, 255, 0.1);
             animation: fadeUp 0.5s 0.5s both;
         }
-        .stat-num { font-family: var(--font-display); font-size: 2.2rem; color: var(--accent3); line-height: 1; }
-        .stat-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 0.3rem; }
+
+        .stat-num {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            color: var(--accent3);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 0.3rem;
+        }
 
         /* SECTIONS */
-        .section { padding: 6rem 2.5rem; max-width: 1100px; margin: 0 auto; }
-        .section-label { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
-        .section-title { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.5rem); text-transform: uppercase; line-height: 1; letter-spacing: 1px; margin-bottom: 3rem; }
+        .section {
+            padding: 6rem 2.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.8rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            text-transform: uppercase;
+            line-height: 1;
+            letter-spacing: 1px;
+            margin-bottom: 3rem;
+        }
 
         /* FEATURES */
-        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: var(--border-ultra); box-shadow: var(--shadow-lg); }
-        @media(max-width:700px){ .features-grid { grid-template-columns: 1fr; } }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border: var(--border-ultra);
+            box-shadow: var(--shadow-lg);
+        }
+
+        @media(max-width:700px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .feature-card {
-            padding: 2rem; background: white;
-            border-right: var(--border-thick); border-bottom: var(--border-thick);
-            position: relative; transition: background 0.15s;
+            padding: 2rem;
+            background: white;
+            border-right: var(--border-thick);
+            border-bottom: var(--border-thick);
+            position: relative;
+            transition: background 0.15s;
         }
-        .feature-card:hover { background: var(--bg); }
-        .feature-card:nth-child(3n) { border-right: none; }
+
+        .feature-card:hover {
+            background: var(--bg);
+        }
+
+        .feature-card:nth-child(3n) {
+            border-right: none;
+        }
+
         .feature-card::before {
-            content: ''; position: absolute; top: 0; left: 0;
-            width: 4px; height: 0; background: var(--accent); transition: height 0.2s;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: var(--accent);
+            transition: height 0.2s;
         }
-        .feature-card:hover::before { height: 100%; }
-        .feature-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
-        .feature-title { font-family: var(--font-display); font-size: 1.2rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.6rem; }
-        .feature-desc { font-size: 1rem; font-weight: 500; color: #555; line-height: 1.6; }
+
+        .feature-card:hover::before {
+            height: 100%;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feature-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.6rem;
+        }
+
+        .feature-desc {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #555;
+            line-height: 1.6;
+        }
 
         /* ROLES */
-        .roles-section { background: var(--primary); padding: 6rem 2.5rem; }
-        .roles-inner { max-width: 1100px; margin: 0 auto; }
-        .roles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
-        @media(max-width:700px){ .roles-grid { grid-template-columns: 1fr; } }
-        .role-card { border: var(--border-ultra); padding: 2rem; transition: transform 0.1s, box-shadow 0.1s; }
-        .role-card:hover { transform: translate(-4px,-4px); }
-        .role-card.admin-card { background: var(--accent); box-shadow: var(--shadow); }
-        .role-card.faculty-card { background: var(--accent2); box-shadow: var(--shadow); }
-        .role-card.student-card { background: var(--accent3); box-shadow: var(--shadow); }
-        .role-icon { font-size: 3rem; margin-bottom: 1rem; }
-        .role-title { font-family: var(--font-display); font-size: 1.6rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.8rem; }
-        .role-card.admin-card .role-title { color: white; }
-        .role-perms { list-style: none; padding: 0; }
-        .role-perms li { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 1px; padding: 0.4rem 0; border-bottom: 1px solid rgba(0,0,0,0.1); display: flex; align-items: center; gap: 0.5rem; }
-        .role-card.admin-card .role-perms li { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.9); }
-        .role-perms li::before { content: '→'; font-weight: 700; }
+        .roles-section {
+            background: var(--primary);
+            padding: 6rem 2.5rem;
+        }
+
+        .roles-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        @media(max-width:700px) {
+            .roles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .role-card {
+            border: var(--border-ultra);
+            padding: 2rem;
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+
+        .role-card:hover {
+            transform: translate(-4px, -4px);
+        }
+
+        .role-card.admin-card {
+            background: var(--accent);
+            box-shadow: var(--shadow);
+        }
+
+        .role-card.faculty-card {
+            background: var(--accent2);
+            box-shadow: var(--shadow);
+        }
+
+        .role-card.student-card {
+            background: var(--accent3);
+            box-shadow: var(--shadow);
+        }
+
+        .role-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .role-title {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+        }
+
+        .role-card.admin-card .role-title {
+            color: white;
+        }
+
+        .role-perms {
+            list-style: none;
+            padding: 0;
+        }
+
+        .role-perms li {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .role-card.admin-card .role-perms li {
+            border-color: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .role-perms li::before {
+            content: '→';
+            font-weight: 700;
+        }
 
         /* HOW IT WORKS */
-        .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: var(--border-ultra); box-shadow: var(--shadow-lg); margin-top: 3rem; }
-        @media(max-width:700px){ .steps-grid { grid-template-columns: 1fr; } }
-        .step { padding: 2rem 1.5rem; background: white; border-right: var(--border-thick); position: relative; }
-        .step:last-child { border-right: none; }
-        .step-num { font-family: var(--font-display); font-size: 4rem; color: var(--bg); -webkit-text-stroke: 3px #0d0d0d; line-height: 1; margin-bottom: 0.5rem; }
-        .step-title { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.5rem; }
-        .step-desc { font-size: 0.95rem; font-weight: 500; color: #666; line-height: 1.5; }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border: var(--border-ultra);
+            box-shadow: var(--shadow-lg);
+            margin-top: 3rem;
+        }
+
+        @media(max-width:700px) {
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .step {
+            padding: 2rem 1.5rem;
+            background: white;
+            border-right: var(--border-thick);
+            position: relative;
+        }
+
+        .step:last-child {
+            border-right: none;
+        }
+
+        .step-num {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            color: var(--bg);
+            -webkit-text-stroke: 3px #0d0d0d;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-title {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-desc {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #666;
+            line-height: 1.5;
+        }
+
         .step::after {
-            content: '→'; position: absolute; right: -1.1rem; top: 50%; transform: translateY(-50%);
-            font-size: 0.9rem; z-index: 2;
-            background: var(--accent3); border: var(--border-thick);
-            width: 2.2rem; height: 2.2rem; display: flex; align-items: center; justify-content: center;
+            content: '→';
+            position: absolute;
+            right: -1.1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+            z-index: 2;
+            background: var(--accent3);
+            border: var(--border-thick);
+            width: 2.2rem;
+            height: 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-family: var(--font-display);
         }
-        .step:last-child::after { display: none; }
-        @media(max-width:700px){ .step::after { display: none; } .step { border-right: none; border-bottom: var(--border-thick); } .step:last-child { border-bottom: none; } }
+
+        .step:last-child::after {
+            display: none;
+        }
+
+        @media(max-width:700px) {
+            .step::after {
+                display: none;
+            }
+
+            .step {
+                border-right: none;
+                border-bottom: var(--border-thick);
+            }
+
+            .step:last-child {
+                border-bottom: none;
+            }
+        }
 
         /* CTA */
-        .cta-banner { background: var(--accent); border-top: var(--border-ultra); border-bottom: var(--border-ultra); padding: 5rem 2.5rem; text-align: center; position: relative; overflow: hidden; }
-        .cta-banner::before { content: 'GO'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: var(--font-display); font-size: 25rem; color: rgba(0,0,0,0.06); pointer-events: none; white-space: nowrap; }
-        .cta-title { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 5rem); color: white; text-transform: uppercase; letter-spacing: 2px; line-height: 1; margin-bottom: 1rem; }
-        .cta-sub { font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 2.5rem; }
-        .btn-white { background: white; color: var(--text); border: var(--border-ultra); }
+        .cta-banner {
+            background: var(--accent);
+            border-top: var(--border-ultra);
+            border-bottom: var(--border-ultra);
+            padding: 5rem 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-banner::before {
+            content: 'GO';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--font-display);
+            font-size: 25rem;
+            color: rgba(0, 0, 0, 0.06);
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .cta-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .cta-sub {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--text);
+            border: var(--border-ultra);
+        }
 
         /* FOOTER */
-        footer { background: #0a0612; border-top: var(--border-ultra); padding: 3rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-        .footer-logo { font-family: var(--font-display); font-size: 1.2rem; color: white; letter-spacing: 2px; }
-        .footer-note { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); }
-        .footer-links { display: flex; gap: 1.5rem; }
-        .footer-links a { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); text-decoration: none; }
-        .footer-links a:hover { color: var(--accent3); }
+        footer {
+            background: #0a0612;
+            border-top: var(--border-ultra);
+            padding: 3rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: white;
+            letter-spacing: 2px;
+        }
+
+        .footer-note {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent3);
+        }
     </style>
 </head>
+
 <body>
 
     <nav class="nav">
@@ -225,16 +659,29 @@
             <span class="outline-word">Management</span><br>
             <span class="accent-word">System</span>
         </h1>
-        <p class="hero-desc">A unified platform for Admins, Faculty, and Students. Manage users, track attendance, and update grades — all in one place.</p>
+        <p class="hero-desc">A unified platform for Admins, Faculty, and Students. Manage users, track attendance, and
+            update grades — all in one place.</p>
         <div class="hero-actions">
             <a href="login.html" class="btn-primary">→ Enter Portal</a>
             <a href="#how" class="btn-outline">How It Works</a>
         </div>
         <div class="hero-stats">
-            <div><div class="stat-num">3</div><div class="stat-label">User Roles</div></div>
-            <div><div class="stat-num">4</div><div class="stat-label">Subjects Tracked</div></div>
-            <div><div class="stat-num">100%</div><div class="stat-label">Frontend Only</div></div>
-            <div><div class="stat-num">0</div><div class="stat-label">Dependencies</div></div>
+            <div>
+                <div class="stat-num">3</div>
+                <div class="stat-label">User Roles</div>
+            </div>
+            <div>
+                <div class="stat-num">4</div>
+                <div class="stat-label">Subjects Tracked</div>
+            </div>
+            <div>
+                <div class="stat-num">100%</div>
+                <div class="stat-label">Frontend Only</div>
+            </div>
+            <div>
+                <div class="stat-num">0</div>
+                <div class="stat-label">Dependencies</div>
+            </div>
         </div>
     </section>
 
@@ -243,12 +690,33 @@
         <div class="section-label">// What it does</div>
         <h2 class="section-title">Core Features</h2>
         <div class="features-grid">
-            <div class="feature-card"><span class="feature-icon">🔐</span><div class="feature-title">Role-Based Access</div><p class="feature-desc">Three distinct roles — Admin, Faculty, Student — each with their own dashboard and permissions.</p></div>
-            <div class="feature-card"><span class="feature-icon">👤</span><div class="feature-title">User Management</div><p class="feature-desc">Admins create Faculty and Student accounts on the fly. No backend or database required.</p></div>
-            <div class="feature-card"><span class="feature-icon">📊</span><div class="feature-title">Grade Tracking</div><p class="feature-desc">Faculty update Math, Science, and English marks per student. Changes reflect instantly.</p></div>
-            <div class="feature-card"><span class="feature-icon">📅</span><div class="feature-title">Attendance Records</div><p class="feature-desc">Track attendance percentage for every student with visual score bars.</p></div>
-            <div class="feature-card"><span class="feature-icon">💾</span><div class="feature-title">Persistent Storage</div><p class="feature-desc">All data saved via localStorage — refresh the page without losing anything.</p></div>
-            <div class="feature-card"><span class="feature-icon">⚡</span><div class="feature-title">Zero Setup</div><p class="feature-desc">Open the file and go. No server, no database, no install steps required.</p></div>
+            <div class="feature-card"><span class="feature-icon">🔐</span>
+                <div class="feature-title">Role-Based Access</div>
+                <p class="feature-desc">Three distinct roles — Admin, Faculty, Student — each with their own dashboard
+                    and permissions.</p>
+            </div>
+            <div class="feature-card"><span class="feature-icon">👤</span>
+                <div class="feature-title">User Management</div>
+                <p class="feature-desc">Admins create Faculty and Student accounts on the fly. No backend or database
+                    required.</p>
+            </div>
+            <div class="feature-card"><span class="feature-icon">📊</span>
+                <div class="feature-title">Grade Tracking</div>
+                <p class="feature-desc">Faculty update Math, Science, and English marks per student. Changes reflect
+                    instantly.</p>
+            </div>
+            <div class="feature-card"><span class="feature-icon">📅</span>
+                <div class="feature-title">Attendance Records</div>
+                <p class="feature-desc">Track attendance percentage for every student with visual score bars.</p>
+            </div>
+            <div class="feature-card"><span class="feature-icon">💾</span>
+                <div class="feature-title">Persistent Storage</div>
+                <p class="feature-desc">All data saved via localStorage — refresh the page without losing anything.</p>
+            </div>
+            <div class="feature-card"><span class="feature-icon">⚡</span>
+                <div class="feature-title">Zero Setup</div>
+                <p class="feature-desc">Open the file and go. No server, no database, no install steps required.</p>
+            </div>
         </div>
     </section>
 
@@ -297,10 +765,26 @@
         <div class="section-label">// Step by step</div>
         <h2 class="section-title">How It Works</h2>
         <div class="steps-grid">
-            <div class="step"><div class="step-num">01</div><div class="step-title">Admin Login</div><p class="step-desc">Sign in as admin using default credentials to access the control panel.</p></div>
-            <div class="step"><div class="step-num">02</div><div class="step-title">Add Users</div><p class="step-desc">Create Faculty and Student accounts with custom usernames and passwords.</p></div>
-            <div class="step"><div class="step-num">03</div><div class="step-title">Enter Grades</div><p class="step-desc">Faculty logs in and fills attendance and subject marks for each student.</p></div>
-            <div class="step"><div class="step-num">04</div><div class="step-title">Student Views</div><p class="step-desc">Student logs in to see their personal academic performance dashboard.</p></div>
+            <div class="step">
+                <div class="step-num">01</div>
+                <div class="step-title">Admin Login</div>
+                <p class="step-desc">Sign in as admin using default credentials to access the control panel.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">02</div>
+                <div class="step-title">Add Users</div>
+                <p class="step-desc">Create Faculty and Student accounts with custom usernames and passwords.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">03</div>
+                <div class="step-title">Enter Grades</div>
+                <p class="step-desc">Faculty logs in and fills attendance and subject marks for each student.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">04</div>
+                <div class="step-title">Student Views</div>
+                <p class="step-desc">Student logs in to see their personal academic performance dashboard.</p>
+            </div>
         </div>
     </section>
 
@@ -324,4 +808,5 @@
     </footer>
 
 </body>
+
 </html>
